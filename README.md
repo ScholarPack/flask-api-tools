@@ -8,7 +8,7 @@ associated Flask extensions.
 Install and update using `pip`:
 
 ```bash 
-pip install -U Flask-API-Tools
+pip install -U flask-api-tools
 ```
 
 ## Storage Backed Rate Limiting

@@ -20,3 +20,12 @@ class TestInMemoryLimiter:
         limiter._storage.check = lambda: False
         with pytest.raises(ConfigurationError):
             limiter._check_storage()
+
+    def test_check_storage_disabled(self, app):
+        app.config["RATELIMIT_ENABLED"] = False
+
+        local_in_memory_limiter = copy.deepcopy(InMemoryLimiter)
+        limiter = local_in_memory_limiter(app=app)
+
+        limiter._storage.check = lambda: False
+        limiter._check_storage()
