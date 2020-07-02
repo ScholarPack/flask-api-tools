@@ -46,14 +46,6 @@ limiter = InMemoryLimiter(storage_uri="redis://localhost:6379")
 limiter.init_app(app=app)
 ```
 
-In addition to this, ```init_app``` allows you to set several in-memory useful variables.
-This lets you dynamically configure the rate limiter using objects from the Flask
-application context - such as ```app.config``` values. This is not possible with
-the base class. Currently, the supported variable overrides are:
-
-- storage_uri
-- key_prefix
-
 # Developing
 __The build pipeline requires your tests to pass and code to be formatted__
 
