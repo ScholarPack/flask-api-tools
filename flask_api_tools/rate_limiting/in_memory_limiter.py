@@ -20,13 +20,13 @@ class InMemoryLimiter(Limiter):
         :raise ConfigurationError: if storage is incorrectly configured
         """
         super().init_app(app=app)
-        self._check_storage()
 
         if app:
-            # Attach any existing Flask log handlers
             for handler in app.logger.handlers:
-                self.logger.debug(f"Adding log handler to limiter: {str(handler)}")
                 self.logger.addHandler(handler)
+                self.logger.debug(f"Added log handler to limiter: {str(handler)}")
+
+        self._check_storage()
 
     def _check_storage(self) -> None:
         """
@@ -34,8 +34,12 @@ class InMemoryLimiter(Limiter):
         :return: None
         :raise ConfigurationError: if storage is incorrectly configured
         """
-        if not self._storage.check():
-            self.logger.critical(f"Invalid storage configuration: {self._storage_uri}")
-            raise ConfigurationError(
-                f"Invalid storage configuration: {self._storage_uri}"
-            )
+        if self.enabled:
+            self.logger.debug("Starting to check in-memory backend storage")
+            if not self._storage.check():
+                self.logger.critical("Invalid or inaccessible storage configuration")
+                raise ConfigurationError(
+                    "Invalid or inaccessible storage configuration"
+                )
+
+            self.logger.debug("In-memory backend storage operating correctly")
