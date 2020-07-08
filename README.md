@@ -16,7 +16,8 @@ The ```InMemoryLimiter``` class is an extension of Flask-Limiter. This class
 implements storage-backed rate limiting. You'll need to follow the rate limiting steps
 outlined in [Flask-Limiter](https://flask-limiter.readthedocs.io/en/stable/), and 
 you must provide a ```RATELIMIT_STORAGE_URL``` to a redis (or other in-memory data
-structure) instance. 
+structure) instance. If you enabled the in-memory fallback of Flask-Limiter,
+this class will simply log the errors and then switchover instead.
 
 This class attaches any existing Flask log handlers to Flask-Limiter.
 
