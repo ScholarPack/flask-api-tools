@@ -32,14 +32,25 @@ class InMemoryLimiter(Limiter):
         """
         Check the storage backed is connected correctly
         :return: None
-        :raise ConfigurationError: if storage is incorrectly configured
+        :raise ConfigurationError: if storage is incorrectly configured (and no fallback is enabled)
         """
         if self.enabled:
-            self.logger.debug("Starting to check in-memory backend storage")
-            if not self._storage.check():
-                self.logger.critical("Invalid or inaccessible storage configuration")
-                raise ConfigurationError(
-                    "Invalid or inaccessible storage configuration"
+            self.logger.debug(
+                f"Starting to check in-memory backend storage: {self._storage}"
+            )
+            if self._storage.check():
+                self.logger.debug(
+                    f"In-memory backend storage operating correctly: {self._storage}"
                 )
-
-            self.logger.debug("In-memory backend storage operating correctly")
+            else:
+                if self._in_memory_fallback_enabled:
+                    self.logger.error(
+                        f"Storage schema inaccessible - falling back to {self._in_memory_fallback}"
+                    )
+                else:
+                    self.logger.critical(
+                        f"Invalid or inaccessible storage configuration: {self._storage}"
+                    )
+                    raise ConfigurationError(
+                        "Invalid or inaccessible storage configuration"
+                    )
