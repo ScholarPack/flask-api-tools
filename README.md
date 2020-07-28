@@ -11,40 +11,9 @@ Install and update using `pip`:
 pip install -U flask-api-tools
 ```
 
-## Storage Backed Rate Limiting
-The ```InMemoryLimiter``` class is an extension of Flask-Limiter. This class
-implements storage-backed rate limiting. You'll need to follow the rate limiting steps
-outlined in [Flask-Limiter](https://flask-limiter.readthedocs.io/en/stable/), and 
-you must provide a ```RATELIMIT_STORAGE_URL``` to a redis (or other in-memory data
-structure) instance. 
-
-This class attaches any existing Flask log handlers to Flask-Limiter.
-
-Basic Flask usage:
-
-```python
-from flask import Flask
-from flask_api_tools.rate_limiting.in_memory_limiter import InMemoryLimiter
-
-app = Flask(__name__)
-limiter = InMemoryLimiter(app=app, storage_uri="redis://localhost:6379")
-```
-
-This will raise a ```ConfigurationError``` (from ```limits.errors```) if the backend
-storage is inaccessible. 
-
-Alternatively, you can still benefit from the configuration checking when using
-Flask-Limiter's ```init_app``` function:
-
-```python
-from flask import Flask
-from flask_api_tools.rate_limiting.in_memory_limiter import InMemoryLimiter
-
-app = Flask(__name__)
-limiter = InMemoryLimiter(storage_uri="redis://localhost:6379")
-# Do some other things with the limiter...
-limiter.init_app(app=app)
-```
+# Tools
+* [Storage Backed Rate Limiting](https://github.com/ScholarPack/flask-api-tools/blob/master/flask_api_tools/rate_limiting/README.md)
+* [Validators](https://github.com/ScholarPack/flask-api-tools/blob/master/flask_api_tools/validators/README.md)
 
 # Developing
 __The build pipeline requires your tests to pass and code to be formatted__
