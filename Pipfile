@@ -7,6 +7,8 @@ name = "pypi"
 flask = "*"
 flask-limiter = "*"
 redis = "*"
+bleach = "*"
+cerberus = "*"
 
 [dev-packages]
 pytest = "*"
@@ -18,7 +20,7 @@ twine = "*"
 fakeredis = "*"
 
 [requires]
-python_version = "3.7"
+python_version = "3.6"
 
 [pipenv]
 allow_prereleases = true
