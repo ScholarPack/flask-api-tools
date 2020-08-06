@@ -5,6 +5,11 @@ from .validator import Validator
 
 class DataSet(dict):
 
+    _allow_unknown: bool = False
+    _ignore_none_values: bool = False
+    _purge_readonly: bool = False
+    _purge_unknown: bool = False
+    _require_all: bool = False
     schema: Dict = {}
 
     def __init__(self, *args, **kwargs):
@@ -44,9 +49,16 @@ class DataSet(dict):
         if not data:
             return {}
 
-        validator = Validator()
+        validator = Validator(
+            schema=cls.schema,
+            allow_unknown=cls._allow_unknown,
+            ignore_none_values=cls._ignore_none_values,
+            purge_readonly=cls._purge_readonly,
+            purge_unknown=cls._purge_unknown,
+            require_all=cls._require_all,
+        )
 
-        if not validator.validate(data[0], cls.schema):
+        if not validator.validate(data[0]):
             raise DocumentError(validator.errors)
 
         return cls(validator.document)
@@ -66,10 +78,17 @@ class DataSet(dict):
         if not data:
             return collection
 
-        validator = Validator()
+        validator = Validator(
+            schema=cls.schema,
+            allow_unknown=cls._allow_unknown,
+            ignore_none_values=cls._ignore_none_values,
+            purge_readonly=cls._purge_readonly,
+            purge_unknown=cls._purge_unknown,
+            require_all=cls._require_all,
+        )
 
         for d in data:
-            if validator.validate(d, cls.schema):
+            if validator.validate(d):
                 collection.append(cls(validator.document))
             else:
                 raise DocumentError(validator.errors)
