@@ -25,7 +25,7 @@ schema = {
 
 ### DataSet
 The ```DataSet``` class is a friendly wrapper for the ```Validator``` class.
-This class is intended to be used for ensuring data that comes from another API matches a given format.
+This class is intended to be used for ensuring data that comes from another API matches a given format. The `DataSet` class is intended to be extended.
 
 Basic usage:
 ```python
@@ -68,6 +68,18 @@ If the API response is in the format:
 ```
 
 ```.validate_one``` and ```.validate_many``` should be used instead.
+
+Anything that extends `DataSet` also exposes the following, with the associated defaults:
+
+```python
+_allow_unknown: bool = False
+_ignore_none_values: bool = False
+_purge_readonly: bool = False
+_purge_unknown: bool = False
+_require_all: bool = False
+```
+
+These function exactly as documented in the [cerberus documentation](https://docs.python-cerberus.org/en/stable/validation-rules.html)
 
 ### SanitisedDataSet
 The ```SanitisedDataSet``` class is a friendly wrapper for a dictionary.

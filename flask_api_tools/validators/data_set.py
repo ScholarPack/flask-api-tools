@@ -5,11 +5,11 @@ from .validator import Validator
 
 class DataSet(dict):
 
-    allow_unknown: bool = False
-    ignore_none_values: bool = False
-    purge_readonly: bool = False
-    purge_unknown: bool = False
-    require_all: bool = False
+    _allow_unknown: bool = False
+    _ignore_none_values: bool = False
+    _purge_readonly: bool = False
+    _purge_unknown: bool = False
+    _require_all: bool = False
     schema: Dict = {}
 
     def __init__(self, *args, **kwargs):
@@ -51,11 +51,11 @@ class DataSet(dict):
 
         validator = Validator(
             schema=cls.schema,
-            allow_unknown=cls.allow_unknown,
-            ignore_none_values=cls.ignore_none_values,
-            purge_readonly=cls.purge_readonly,
-            purge_unknown=cls.purge_unknown,
-            require_all=cls.require_all,
+            allow_unknown=cls._allow_unknown,
+            ignore_none_values=cls._ignore_none_values,
+            purge_readonly=cls._purge_readonly,
+            purge_unknown=cls._purge_unknown,
+            require_all=cls._require_all,
         )
 
         if not validator.validate(data[0]):
@@ -80,11 +80,11 @@ class DataSet(dict):
 
         validator = Validator(
             schema=cls.schema,
-            allow_unknown=cls.allow_unknown,
-            ignore_none_values=cls.ignore_none_values,
-            purge_readonly=cls.purge_readonly,
-            purge_unknown=cls.purge_unknown,
-            require_all=cls.require_all,
+            allow_unknown=cls._allow_unknown,
+            ignore_none_values=cls._ignore_none_values,
+            purge_readonly=cls._purge_readonly,
+            purge_unknown=cls._purge_unknown,
+            require_all=cls._require_all,
         )
 
         for d in data:
