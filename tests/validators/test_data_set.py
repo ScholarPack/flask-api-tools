@@ -16,6 +16,9 @@ class TestDataSet:
             "key_nullable_integer": "",
             "key_bool": "True",
             "key_none_bool": None,
+            "key_float": "7.5",
+            "key_none_float": None,
+            "key_nullable_float": "",
         }
         expected_data = {
             "key_string": "abc",
@@ -27,6 +30,9 @@ class TestDataSet:
             "key_nullable_integer": None,
             "key_bool": True,
             "key_none_bool": False,
+            "key_float": 7.5,
+            "key_none_float": 0.0,
+            "key_nullable_float": None,
         }
         validated_data_set = ExampleDataSet.validate_object(example_raw_data)
         assert validated_data_set == expected_data
@@ -66,6 +72,9 @@ class TestDataSet:
             "key_nullable_integer": "",
             "key_bool": "True",
             "key_none_bool": None,
+            "key_float": "7.5",
+            "key_none_float": None,
+            "key_nullable_float": "",
         }
         expected_data = {
             "key_string": "abc",
@@ -77,6 +86,9 @@ class TestDataSet:
             "key_nullable_integer": None,
             "key_bool": True,
             "key_none_bool": False,
+            "key_float": 7.5,
+            "key_none_float": 0.0,
+            "key_nullable_float": None,
         }
         validated_data_set = ExampleDataSet.validate_objects(
             [example_raw_data, example_raw_data]
@@ -94,6 +106,9 @@ class TestDataSet:
             "key_nullable_integer": "",
             "key_bool": "True",
             "key_none_bool": None,
+            "key_float": "7.5",
+            "key_none_float": None,
+            "key_nullable_float": "",
         }
         expected_data = {
             "key_string": "abc",
@@ -105,6 +120,9 @@ class TestDataSet:
             "key_nullable_integer": None,
             "key_bool": True,
             "key_none_bool": False,
+            "key_float": 7.5,
+            "key_none_float": 0.0,
+            "key_nullable_float": None,
         }
         validated_data_set = ExampleDataSet.validate_one({"data": [example_raw_data]})
         assert validated_data_set == expected_data
@@ -120,6 +138,9 @@ class TestDataSet:
             "key_nullable_integer": "",
             "key_bool": "True",
             "key_none_bool": None,
+            "key_float": "7.5",
+            "key_none_float": None,
+            "key_nullable_float": "",
         }
         expected_data = {
             "key_string": "abc",
@@ -131,6 +152,9 @@ class TestDataSet:
             "key_nullable_integer": None,
             "key_bool": True,
             "key_none_bool": False,
+            "key_float": 7.5,
+            "key_none_float": 0.0,
+            "key_nullable_float": None,
         }
         validated_data_set = ExampleDataSet.validate_many(
             {"data": [example_raw_data, example_raw_data]}

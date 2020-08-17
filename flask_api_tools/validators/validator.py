@@ -82,3 +82,27 @@ class Validator(Cerberus):
         if value == "" or value == "False" or value == "None" or value is None:
             return False
         return value
+
+    def _normalize_coerce_to_float(self, value):
+        """
+        Custom normalizer for coercing string based floating point values to real floats.
+        example::
+            schema = {"attendance_percentage": {"type": "float", "coerce": "to_float"}}
+        :param value: The value to coerce
+        :return: The coerced value
+        """
+        if value == "" or value == "None" or value is None:
+            return 0.0
+        return float(value)
+
+    def _normalize_coerce_to_nullable_float(self, value):
+        """
+        Customer normalizer for coercing values into None or floats.
+        example::
+            schema = {"attendance_percentage": {"type": "float", "nullable": True, "coerce": "to_nullable_float"}}
+        :param value: The value to coerce
+        :return: The coerced value
+        """
+        if value == "" or value == "None" or value is None:
+            return None
+        return float(value)

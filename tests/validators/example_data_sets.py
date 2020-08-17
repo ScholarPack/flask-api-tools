@@ -18,6 +18,13 @@ _shared_schema = {
     },
     "key_bool": {"type": "boolean", "coerce": "to_bool"},
     "key_none_bool": {"type": "boolean", "nullable": True, "coerce": "to_bool"},
+    "key_float": {"type": "float", "coerce": "to_float"},
+    "key_none_float": {"type": "float", "coerce": "to_float"},
+    "key_nullable_float": {
+        "type": "float",
+        "nullable": True,
+        "coerce": "to_nullable_float",
+    },
 }
 
 
