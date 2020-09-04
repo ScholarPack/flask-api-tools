@@ -27,5 +27,5 @@ class TestInMemoryLimiter:
         local_in_memory_limiter = copy.deepcopy(InMemoryLimiter)
         limiter = local_in_memory_limiter(app=app)
 
-        limiter._storage.check = lambda: False
+        # Implicit assert no exceptions raised
         limiter._check_storage()

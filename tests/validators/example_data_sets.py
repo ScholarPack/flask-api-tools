@@ -2,7 +2,11 @@ from flask_api_tools.validators import DataSet, SanitisedDataSet
 
 _shared_schema = {
     "key_string": {"type": "string", "coerce": "to_string"},
-    "key_none_string": {"type": "string", "nullable": True, "coerce": "to_string",},
+    "key_none_string": {
+        "type": "string",
+        "nullable": True,
+        "coerce": "to_string",
+    },
     "key_nullable_string": {
         "type": "string",
         "nullable": True,
@@ -10,7 +14,11 @@ _shared_schema = {
     },
     "key_uuid_string": {"type": "string", "check_with": "uuid"},
     "key_integer": {"type": "integer", "coerce": "to_integer"},
-    "key_none_integer": {"type": "integer", "nullable": True, "coerce": "to_integer",},
+    "key_none_integer": {
+        "type": "integer",
+        "nullable": True,
+        "coerce": "to_integer",
+    },
     "key_nullable_integer": {
         "type": "integer",
         "nullable": True,
