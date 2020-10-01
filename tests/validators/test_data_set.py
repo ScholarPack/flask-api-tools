@@ -1,5 +1,5 @@
 import pytest
-from datetime import datetime
+from datetime import date, datetime
 from cerberus import DocumentError
 
 from .example_data_sets import ExampleDataSet
@@ -37,11 +37,9 @@ class TestDataSet:
         "key_float": 7.5,
         "key_none_float": 0.0,
         "key_nullable_float": None,
-        "key_date": datetime.strptime("1900-01-31", "%Y-%m-%d").date(),
+        "key_date": date.fromisoformat("1900-01-31"),
         "key_none_date": None,
-        "key_datetime": datetime.strptime(
-            "1900-01-31T09:30:00.532649", "%Y-%m-%dT%H:%M:%S.%f"
-        ),
+        "key_datetime": datetime.fromisoformat("1900-01-31T09:30:00.532649"),
         "key_none_datetime": None,
     }
 
