@@ -1,4 +1,5 @@
 import uuid
+from datetime import date, datetime
 
 from cerberus import Validator as Cerberus
 
@@ -97,7 +98,7 @@ class Validator(Cerberus):
 
     def _normalize_coerce_to_nullable_float(self, value):
         """
-        Customer normalizer for coercing values into None or floats.
+        Custom normalizer for coercing values into None or floats.
         example::
             schema = {"attendance_percentage": {"type": "float", "nullable": True, "coerce": "to_nullable_float"}}
         :param value: The value to coerce
@@ -106,3 +107,29 @@ class Validator(Cerberus):
         if value == "" or value == "None" or value is None:
             return None
         return float(value)
+
+    def _normalize_coerce_to_date(self, value):
+        """
+        Custom normalizer for coercing string based dates in ISO format into real dates.
+        example::
+            schema = {"start_date": {"type": "date", "coerce": "to_date"}}
+        :param value: The value to coerce
+        :return The coerced value
+        """
+        try:
+            return date.fromisoformat(value)
+        except:
+            return None
+
+    def _normalize_coerce_to_datetime(self, value):
+        """
+        Custom normalizer for coercing string based datetimes in ISO format into real dates.
+        example::
+            schema = {"start_datetime": {"type": "datetime", "coerce": "to_datetime"}}
+        :param value: The value to coerce
+        :return The coerced value
+        """
+        try:
+            return datetime.fromisoformat(value)
+        except:
+            return None

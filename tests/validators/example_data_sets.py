@@ -33,6 +33,14 @@ _shared_schema = {
         "nullable": True,
         "coerce": "to_nullable_float",
     },
+    "key_date": {"type": "date", "coerce": "to_date"},
+    "key_none_date": {"type": "date", "nullable": True, "coerce": "to_date"},
+    "key_datetime": {"type": "datetime", "coerce": "to_datetime"},
+    "key_none_datetime": {
+        "type": "datetime",
+        "nullable": True,
+        "coerce": "to_datetime",
+    },
 }
 
 
