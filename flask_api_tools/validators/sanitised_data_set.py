@@ -1,14 +1,10 @@
 import bleach
 
-from typing import Dict
+from .data_set import DataSet
 from cerberus import DocumentError
-from .validator import Validator
 
 
-class SanitisedDataSet(dict):
-
-    schema: Dict = {}
-
+class SanitisedDataSet(DataSet):
     def __init__(self, *args, **kwargs):
         """
         SanitisedDataSet inherits from dict so it behaves exactly like one.
@@ -51,16 +47,11 @@ class SanitisedDataSet(dict):
     @classmethod
     def validate(cls, request_data):
         """
-        Static constructor for validating the data against the defined schema.
-        :param request_data: The request from parents app.
+        Validate and clean the data against the defined schema.
+        :param request_data: The user request data.
         :return: Validated data.
         """
-        validator = Validator()
-
-        if not validator.validate(request_data, cls.schema):
-            raise DocumentError(validator.errors)
-
-        return cls(validator.document)
+        return cls.validate_object(request_data)
 
     def _sanitise_value(self, value):
         """
