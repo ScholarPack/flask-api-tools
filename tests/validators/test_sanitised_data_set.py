@@ -1,6 +1,6 @@
 import pytest
 from cerberus import DocumentError
-from flask_api_tools.validators import SanitisedDataSet
+from flask_api_tools.validators import DataSet, SanitisedDataSet, Validator
 
 
 class ExampleSanitisedDataSet(SanitisedDataSet):
@@ -130,3 +130,62 @@ class TestSanitisedDataSet:
         data.setdefault("name", "<script><!-- comment -->script</script>")
 
         assert data["name"] == "&lt;script&gt;script&lt;/script&gt;"
+
+    def test_a_validator_can_be_set_without_affecting_a_child_class(self):
+        DataSet.set_validator(Validator(require_all=True))
+
+        class Example1(DataSet):
+            schema = {
+                "string_1": {"type": "string", "coerce": "to_string"},
+                "string_2": {"type": "string", "coerce": "to_string"},
+            }
+
+        class Example2(SanitisedDataSet):
+            schema = {
+                "string_1": {"type": "string", "coerce": "to_string"},
+                "string_2": {"type": "string", "coerce": "to_string"},
+            }
+
+        data = {
+            "string_1": "Lorem ipsum",
+        }
+        result = {
+            "string_1": "Lorem ipsum",
+        }
+
+        with pytest.raises(DocumentError):
+            validated = Example1.validate_object(data)
+
+        validated = Example2.validate(data)
+        assert validated == result
+
+    def test_a_validator_can_be_set_without_affecting_the_base_class(self):
+        DataSet.set_validator(
+            Validator()
+        )  # Revert the validator set in the test above.
+        SanitisedDataSet.set_validator(Validator(require_all=True))
+
+        class Example1(DataSet):
+            schema = {
+                "string_1": {"type": "string", "coerce": "to_string"},
+                "string_2": {"type": "string", "coerce": "to_string"},
+            }
+
+        class Example2(SanitisedDataSet):
+            schema = {
+                "string_1": {"type": "string", "coerce": "to_string"},
+                "string_2": {"type": "string", "coerce": "to_string"},
+            }
+
+        data = {
+            "string_1": "Lorem ipsum",
+        }
+        result = {
+            "string_1": "Lorem ipsum",
+        }
+
+        with pytest.raises(DocumentError):
+            validated = Example2.validate(data)
+
+        validated = Example1.validate_object(data)
+        assert validated == result
