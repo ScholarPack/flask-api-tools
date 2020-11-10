@@ -1,10 +1,17 @@
 import bleach
 
 from .data_set import DataSet
+from .validator import Validator
 from cerberus import DocumentError
+from copy import copy
+from typing import Dict
 
 
 class SanitisedDataSet(DataSet):
+
+    _validator: Validator = Validator()
+    _validator_config: Dict = copy(_validator._config)
+
     def __init__(self, *args, **kwargs):
         """
         SanitisedDataSet inherits from dict so it behaves exactly like one.
