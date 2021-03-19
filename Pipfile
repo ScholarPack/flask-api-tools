@@ -9,6 +9,7 @@ flask-limiter = "*"
 redis = "*"
 bleach = "*"
 cerberus = "*"
+bandit = "*"
 
 [dev-packages]
 pytest = "*"

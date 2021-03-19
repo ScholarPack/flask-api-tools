@@ -1,15 +1,19 @@
-name: Validate Build
+name: Validate build
+
 on: [push, pull_request]
+
 jobs:
   build:
+
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [3.7, 3.8]
+        python-version: [3.7, 3.8, 3.9]
+
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v2
     - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v1
+      uses: actions/setup-python@v2
       with:
         python-version: ${{ matrix.python-version }}
     - name: Install Dependencies
@@ -18,18 +22,15 @@ jobs:
         pip install pipenv
         python -m pipenv install --dev --pre --system
         export PYTHONPATH="$PWD"
-    - name: mypy
-      run:
-        mypy flask_api_tools
     - name: Black Check
-      run:
+      run: |
         black --check $PWD
-    - name: Bandit scan
-      run:
+    - name: Bandit check
+      run: |
         bandit -r $PWD -f custom --exclude /tests,/venv -lll
-    - name: Pipenv scan
-      run:
+    - name: Pipenv check
+      run: |
         pipenv check
     - name: Unit Tests and Coverage Report
-      run:
+      run: |
         pytest --cov=./

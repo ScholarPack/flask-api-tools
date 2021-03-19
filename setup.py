@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="flask-api-tools",
-    version="1.6.1",
+    version="1.6.2",
     author="ScholarPack",
     author_email="dev@scholarpack.com",
     description="Tooling to assist with building Flask APIs",
