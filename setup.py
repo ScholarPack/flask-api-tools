@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="flask-api-tools",
-    version="1.6.2",
+    version="1.6.3",
     author="ScholarPack",
     author_email="dev@scholarpack.com",
     description="Tooling to assist with building Flask APIs",
@@ -19,7 +19,7 @@ setuptools.setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
-    python_requires=">=3.7",
+    python_requires=">=3.8",
     install_requires=[
         "flask >= 1.1",
         "flask-limiter >= 1.3",
